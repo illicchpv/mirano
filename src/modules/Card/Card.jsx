@@ -1,3 +1,4 @@
+import './card.scss'
 
 export function Card({className, img, title, dateDelivery, price}) {
 
