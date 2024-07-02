@@ -1,7 +1,6 @@
 import {Header} from './modules/Header/Header'
 import {Footer} from './modules/Footer/Footer'
 import {Goods} from './modules/Goods/Goods'
-// import {Cart} from './modules/Cart/Cart'
 
 export function App() {
 

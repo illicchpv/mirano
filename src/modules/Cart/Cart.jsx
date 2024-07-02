@@ -1,4 +1,3 @@
-// import {Cart} from './modules/Cart/Cart'
 
 export function Cart() {
 
