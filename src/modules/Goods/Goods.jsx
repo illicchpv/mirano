@@ -16,13 +16,13 @@ export function Goods() {
                     <ul className="goods__list">
 
                         {goodsArray.map((el) => {
-                            return (<>
+                            return (
 
                                 <li key={el.id} className="goods__item">
                                     <Card {...el} className='goods__card' />
                                 </li>
 
-                            </>);
+                            );
                         })}
 
                     </ul>

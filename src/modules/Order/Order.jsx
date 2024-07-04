@@ -1,10 +1,28 @@
 import './order.scss';
 
 export function Order() {
+    const isOpen = false; // 
+    const isOrder = false; // 
+
+    if(!isOpen) return;
+
+    if (isOrder) {
+        return (<>
+
+            <div className="order">
+                <div className="order__wrapper">
+                    <h2 className="order__title">Заказ оформлен!</h2>
+                    <p className="order__id">Ваш номер заказа:
+                        971f365a-caa1-4cdb-9446-bad2eff047e1</p>
+                </div>
+            </div>
+
+        </>);
+    }
 
     return (<>
 
-        <div className="order" style={{display: "none", }}>
+        <div className="order">
             <div className="order__wrapper">
                 <h2 className="order__title">Оформить заказ</h2>
                 <form className="order__form" id="order">
@@ -65,14 +83,6 @@ export function Order() {
                 </div>
             </div>
             <button className="order__close" type="button">×</button>
-        </div>
-
-        <div className="order" style={{display: "none", }}>
-            <div className="order__wrapper">
-                <h2 className="order__title">Заказ оформлен!</h2>
-                <p className="order__id">Ваш номер заказа:
-                    971f365a-caa1-4cdb-9446-bad2eff047e1</p>
-            </div>
         </div>
 
     </>);

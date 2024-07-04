@@ -1,10 +1,8 @@
 import './cart.scss';
 
-// import {goodsArray} from '../../cartArray';
-import {goodsArray} from '../../goodsArray';
-console.log('goodsArray: ', goodsArray);
+// import {cartArray} from '../../cartArray';
+import {goodsArray as cartArray} from '../../goodsArray';
 import {CartItem} from '../CartItem/CartItem';
-console.log('CartItem: ', CartItem);
 
 export function Cart() {
 
@@ -30,14 +28,13 @@ export function Cart() {
 
                 <ul className="cart__list">
 
-                    {goodsArray.map((el) => {
-                        return (<>
+                    {cartArray.map((el) => {
 
-                            <li key={el.id} className="cart__item">
-                                <CartItem {...el} />
-                            </li>
+                        return (
 
-                        </>);
+                            <CartItem key={el.id} {...el} />
+
+                        );
                     })}
 
                 </ul>

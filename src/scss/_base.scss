@@ -1,5 +1,7 @@
-@use "./varibles" as *;
-@use "./media" as *;
+@use "@scss/varibles" as *;
+@use "@scss/media" as *;
+// @use "./varibles" as *;
+// @use "./media" as *;
 
 :root {
   position: relative;
