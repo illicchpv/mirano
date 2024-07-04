@@ -1,6 +1,7 @@
 import './filter.scss';
 import {Choices} from '../Choices/Choices';
 import {useState} from 'react';
+import {useState} from 'react';
 
 export function Filter() {
     const [isOpen, setIsOpen] = useState('');
@@ -60,6 +61,9 @@ export function Filter() {
                             </div>
                         </div> */}
 
+                        <Choices buttonLabel="Тип товара" className="filter__choices_type"
+                            name="type" isOpen={isOpen} cc={handlerChangeChoice}
+                        >
                         <Choices buttonLabel="Тип товара" className="filter__choices_type"
                             name="type" isOpen={isOpen} cc={handlerChangeChoice}
                         >
