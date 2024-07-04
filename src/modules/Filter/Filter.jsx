@@ -1,5 +1,5 @@
 import './filter.scss';
-import './choices.scss';
+import {Choices} from '../Choices/Choices';
 
 export function Filter() {
 
@@ -26,8 +26,17 @@ export function Filter() {
                             htmlFor="postcard">Открытки</label>
                     </fieldset>
 
+
                     <fieldset className="filter__group filter__group_choices">
-                        <div className="filter__choices choices">
+                        <Choices buttonLabel="Цена">
+                            <fieldset className="filter__price">
+                                <input className="filter__input-price" type="text" name="minPrice"
+                                    placeholder="от" />
+                                <input className="filter__input-price" type="text" name="maxPrice"
+                                    placeholder="до" />
+                            </fieldset>
+                        </Choices>
+                        {/* <div className="filter__choices choices">
                             <button className="filter__select choices__btn"
                                 type="button">Цена</button>
 
@@ -39,9 +48,34 @@ export function Filter() {
                                         placeholder="до" />
                                 </fieldset>
                             </div>
-                        </div>
+                        </div> */}
 
-                        <div className="filter__choices filter__choices_type choices">
+                        <Choices buttonLabel="Тип товара">
+
+                            <ul className="filter__type-list">
+                                <li className="filter__type-item">
+                                    <button className="filter__type-button"
+                                        type="button">Монобукеты</button>
+                                </li>
+                                <li className="filter__type-item">
+                                    <button className="filter__type-button" type="button">Авторские
+                                        букеты</button>
+                                </li>
+                                <li className="filter__type-item">
+                                    <button className="filter__type-button" type="button">Цветы в
+                                        коробке</button>
+                                </li>
+                                <li className="filter__type-item">
+                                    <button className="filter__type-button" type="button">Цветы в
+                                        корзине</button>
+                                </li>
+                                <li className="filter__type-item">
+                                    <button className="filter__type-button" type="button">Букеты из
+                                        сухоцветов</button>
+                                </li>
+                            </ul>
+                        </Choices>
+                        {/* <div className="filter__choices filter__choices_type choices">
                             <button className="filter__select choices__btn" type="button">Тип
                                 товара</button>
 
@@ -70,7 +104,7 @@ export function Filter() {
                                     </li>
                                 </ul>
                             </div>
-                        </div>
+                        </div> */}
                     </fieldset>
                 </form>
             </div>
