@@ -1,7 +1,7 @@
 import './cart.scss';
 
-// import {cartArray} from '../../cartArray';
-import {goodsArray as cartArray} from '../../goodsArray';
+import {cartArray} from '../../cartArray';
+// import {goodsArray as cartArray} from '../../goodsArray';
 import {CartItem} from '../CartItem/CartItem';
 
 export function Cart() {
