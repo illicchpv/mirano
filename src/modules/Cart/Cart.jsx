@@ -6,6 +6,7 @@ import {CartItem} from '../CartItem/CartItem';
 
 import {useDispatch, useSelector} from 'react-redux';
 import {toggleCart} from '../../redux/cartSlice';
+import {toggleOrder} from '../../redux/orderSlice';
 
 export function Cart() {
     const isOpen = useSelector((state) => state.cart.isOpen);
@@ -15,6 +16,9 @@ export function Cart() {
     
     const handlerCartToggle = () => {
         dispatch(toggleCart());
+    };
+    const handlerOrderToggle = () => {
+        dispatch(toggleOrder());
     };
 
     return (<>
@@ -53,7 +57,9 @@ export function Cart() {
                 </ul>
 
                 <div className="cart__footer">
-                    <button className="cart__order-btn">Оформить</button>
+                    <button className="cart__order-btn"
+                        onClick={handlerOrderToggle}
+                    >Оформить</button>
                     <p className="cart__price cart__price_total">0&nbsp;₽</p>
                 </div>
             </div>
