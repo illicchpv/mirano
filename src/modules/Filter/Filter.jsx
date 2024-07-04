@@ -1,7 +1,15 @@
 import './filter.scss';
 import {Choices} from '../Choices/Choices';
+import {useState} from 'react';
 
 export function Filter() {
+    const [isOpen, setIsOpen] = useState('');
+    console.log('isOpen: ', isOpen);
+
+    const handlerChangeChoice = (name) => setIsOpen(p => {
+        if(p === name) return '';
+        return name;
+    });
 
     return (<>
 
@@ -28,7 +36,7 @@ export function Filter() {
 
 
                     <fieldset className="filter__group filter__group_choices">
-                        <Choices buttonLabel="Цена">
+                        <Choices buttonLabel="Цена" name="price" isOpen={isOpen} cc={handlerChangeChoice}>
                             <fieldset className="filter__price">
                                 <input className="filter__input-price" type="text" name="minPrice"
                                     placeholder="от" />
@@ -50,7 +58,9 @@ export function Filter() {
                             </div>
                         </div> */}
 
-                        <Choices buttonLabel="Тип товара">
+                        <Choices buttonLabel="Тип товара" className="filter__choices_type"
+                            name="type" isOpen={isOpen} cc={handlerChangeChoice}
+                        >
 
                             <ul className="filter__type-list">
                                 <li className="filter__type-item">
