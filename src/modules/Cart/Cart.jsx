@@ -4,7 +4,18 @@ import {cartArray} from '../../cartArray';
 // import {goodsArray as cartArray} from '../../goodsArray';
 import {CartItem} from '../CartItem/CartItem';
 
+import {useDispatch, useSelector} from 'react-redux';
+import {toggleCart} from '../../redux/cartSlice';
+
 export function Cart() {
+    const isOpen = useSelector((state) => state.cart.isOpen);
+    const dispatch = useDispatch();
+    
+    if(!isOpen) return null;
+    
+    const handlerCartToggle = () => {
+        dispatch(toggleCart());
+    };
 
     return (<>
 
@@ -13,7 +24,9 @@ export function Cart() {
                 <div className="cart__header">
                     <h3 className="cart__title">Ваш заказ</h3>
 
-                    <button className="cart__close">
+                    <button className="cart__close"
+                        onClick={handlerCartToggle}
+                    >
                         <svg width="28" height="28" viewBox="0 0 28 28" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <rect x="5" y="5.70715" width="1" height="25"
