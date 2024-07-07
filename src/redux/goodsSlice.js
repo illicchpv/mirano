@@ -13,12 +13,19 @@ const initialState = {
   items: [],
   status: 'idle', // 'idle' 'loading', 'succeeded', 'failed'
   error: null,
+  category: 'bouquets', // bouquets toys  postcards
 };
 
 const goodsSlice = createSlice({
   name: 'goods',
   initialState,
-  reducers: {},
+  reducers: {
+    setCategory(state, action) {
+      // console.log('setCategory action: ', action.payload);
+      state.category = action.payload;
+      state.status = 'idle';      
+    }, 
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchGoods.pending, (state) => {
@@ -35,6 +42,6 @@ const goodsSlice = createSlice({
   },
 });
 
-// export const {} = goodsSlice.actions
+export const {setCategory} = goodsSlice.actions
 
 export default goodsSlice.reducer;

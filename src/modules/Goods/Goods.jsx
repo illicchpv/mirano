@@ -9,13 +9,14 @@ import {API_URL} from '../../const';
 
 export function Goods() {
   const dispatch = useDispatch();
-  const {items: goods, status: goodsStatus, error} = useSelector((state) => state.goods);
+  const {items: goods, status: goodsStatus, error, category} = useSelector((state) => state.goods);
+  console.log('------category: ', category);
 
   useEffect(() => {
     if (goodsStatus === 'idle') {
-      dispatch(fetchGoods());
+      dispatch(fetchGoods({type: category}));
     }
-  }, [goodsStatus, dispatch]);
+  }, [goodsStatus, dispatch, category]);
 
   let content = null;
   if(goodsStatus === 'loading') {

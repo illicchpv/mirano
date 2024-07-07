@@ -1,9 +1,12 @@
 import './filter.scss';
 import {Choices} from '../Choices/Choices';
 import {useState} from 'react';
+import {useDispatch} from 'react-redux';
+import {setCategory} from '../../redux/goodsSlice';
 
 export function Filter() {
   const [openChoice, setOpenChoice] = useState(null);
+  const dispatch = useDispatch();
 
   const handleChoicesToggle = (v) => {
     setOpenChoice(p => {
@@ -22,19 +25,27 @@ export function Filter() {
             <input className="filter__radio" type="radio" name="type"
               value="bouquets" id="flower" defaultChecked />
             <label className="filter__label filter__label_flower"
+              onClick={() => {
+                dispatch(setCategory('bouquets'));
+              }}
               htmlFor="flower">Цветы</label>
 
             <input className="filter__radio" type="radio" name="type" value="toys"
               id="toys" />
             <label className="filter__label filter__label_toys"
+              onClick={() => {
+                dispatch(setCategory('toys'));
+              }}
               htmlFor="toys">Игрушки</label>
 
             <input className="filter__radio" type="radio" name="type"
               value="postcards" id="postcard" />
             <label className="filter__label filter__label_postcard"
+              onClick={() => {
+                dispatch(setCategory('postcards'));
+              }}
               htmlFor="postcard">Открытки</label>
           </fieldset>
-
 
           <fieldset className="filter__group filter__group_choices">
             <Choices buttonLabel="Цена"
@@ -83,12 +94,3 @@ export function Filter() {
 
   </>);
 }
-
-// export function Choices() {
-
-//     return (<>
-
-
-//     </>);
-// }
-
