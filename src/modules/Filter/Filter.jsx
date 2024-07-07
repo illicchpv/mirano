@@ -83,12 +83,3 @@ export function Filter() {
 
   </>);
 }
-
-// export function Choices() {
-
-//     return (<>
-
-
-//     </>);
-// }
-

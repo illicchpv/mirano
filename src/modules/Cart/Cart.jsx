@@ -1,7 +1,5 @@
 import './cart.scss';
 
-// import {cartArray} from '../../cartArray';
-// import {goodsArray as cartArray} from '../../goodsArray';
 import {CartItem} from '../CartItem/CartItem';
 
 import {useDispatch, useSelector} from 'react-redux';
