@@ -9,10 +9,8 @@ export function Order() {
   const isOpen = useSelector((state) => state.order.isOpen);
   // closeOrder();
 
-  const handlerOrderClose = (e) => {
-    if (e.target.matches(`.${style.order}`) || e.target.closest(`.${style.close}`)) {
-      dispatch(closeOrder());
-    }
+  const handlerOrderClose = () => {
+    dispatch(closeOrder());
   };
 
   if (!isOpen) return;
@@ -20,7 +18,7 @@ export function Order() {
   return (<>
 
     <div className={style.order} onClick={handlerOrderClose}>
-      <div className={style.wrapper}>
+      <div className={style.wrapper} onClick={e => e.stopPropagation()}>
         {isOrder ?
           (<>
 
