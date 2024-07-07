@@ -1,6 +1,6 @@
 import './cart.scss';
 
-import {cartArray} from '../../cartArray';
+// import {cartArray} from '../../cartArray';
 // import {goodsArray as cartArray} from '../../goodsArray';
 import {CartItem} from '../CartItem/CartItem';
 
@@ -9,8 +9,9 @@ import {toggleCart} from '../../redux/cartSlice';
 import {openOrder} from '../../redux/orderSlice';
 
 export function Cart() {
-    const isOpen = useSelector((state) => state.cart.isOpen);
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
+  const isOpen = useSelector((state) => state.cart.isOpen);
+  const items = useSelector((state) => state.cart.items);
     
     if(!isOpen) return null;
     
@@ -45,7 +46,7 @@ export function Cart() {
 
                 <ul className="cart__list">
 
-                    {cartArray.map((el) => {
+                    {items.map((el) => {
 
                         return (
 

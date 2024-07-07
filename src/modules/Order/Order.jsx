@@ -5,7 +5,7 @@ import classNames from 'classnames';
 
 export function Order() {
   const dispatch = useDispatch();
-  const isOrder = false; // 
+  const isOrderReady = false; // 
   const isOpen = useSelector((state) => state.order.isOpen);
   // closeOrder();
 
@@ -19,7 +19,7 @@ export function Order() {
 
     <div className={style.order} onClick={handlerOrderClose}>
       <div className={style.wrapper} onClick={e => e.stopPropagation()}>
-        {isOrder ?
+        {isOrderReady ?
           (<>
 
             <h2 className={style.title}>Заказ оформлен!</h2>
