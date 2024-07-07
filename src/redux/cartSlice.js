@@ -14,7 +14,7 @@ const cartSlice = createSlice({
       state.isOpen = !state.isOpen;
     },
 
-    // добавление в карзину localStorage+
+    // добавление в корзину localStorage+
     addItemToCart(state, action) {
       console.log('addItemToCart action: ', action);
       const {id, img, title, dateDelivery, price, count = 1} = action.payload;
