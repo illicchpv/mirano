@@ -21,7 +21,6 @@ const goodsSlice = createSlice({
   initialState,
   reducers: {
     setCategory(state, action) {
-      // console.log('setCategory action: ', action.payload);
       state.category = action.payload;
       state.status = 'idle';      
     }, 

@@ -5,10 +5,9 @@ import classNames from 'classnames';
 
 export function Order() {
   const dispatch = useDispatch();
-  const isOrderReady = false; // 
+  const isOrderReady = false; 
   const isOpen = useSelector((state) => state.order.isOpen);
-  // closeOrder();
-
+  
   const handlerOrderClose = () => {
     dispatch(closeOrder());
   };
