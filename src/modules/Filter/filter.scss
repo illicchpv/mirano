@@ -1,5 +1,7 @@
 @use "@scss/varibles" as *;
 @use "@scss/media" as *;
+// @use "../../scss/varibles" as *;
+// @use "../../scss/media" as *;
 
 .filter {
   &__form {
@@ -95,7 +97,7 @@
     gap: 8px;
   }
 
-//   todo - непонял что туду
+//   todo
   &__choices-box {
 
     &_type {

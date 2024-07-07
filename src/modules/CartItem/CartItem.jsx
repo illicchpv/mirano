@@ -1,3 +1,4 @@
+// import './cartitem.scss';
 import style from './CartItem.module.scss';
 
 export function CartItem({img, title, price}) {

@@ -1,22 +1,10 @@
 import './order.scss';
 
-import {useDispatch, useSelector} from 'react-redux';
-import {toggleOrder} from '../../redux/orderSlice';
-
 export function Order() {
-    const isOpen = useSelector((state) => state.order.isOpen);
-    const dispatch = useDispatch();
-
+    const isOpen = false; // 
     const isOrder = false; // 
 
-    const handlerOrderToggle = (e) => {
-        e.stopPropagation();
-        if (e.target.classList.contains('order__close') || e.target.classList.contains('order')) {
-            dispatch(toggleOrder());
-        }
-    };
-
-    if (!isOpen) return;
+    if(!isOpen) return;
 
     if (isOrder) {
         return (<>
@@ -27,18 +15,15 @@ export function Order() {
                     <p className="order__id">Ваш номер заказа:
                         971f365a-caa1-4cdb-9446-bad2eff047e1</p>
                 </div>
-                <button className="order__close" type="button"
-                    onClick={handlerOrderToggle}
-                >×</button>
+                <button className="order__close" type="button">×</button>
             </div>
+
         </>);
     }
 
     return (<>
 
-        <div className="order"
-            onClick={handlerOrderToggle}
-        >
+        <div className="order">
             <div className="order__wrapper">
                 <h2 className="order__title">Оформить заказ</h2>
                 <form className="order__form" id="order">
@@ -98,10 +83,7 @@ export function Order() {
                         type="submit" form="order">Заказать</button>
                 </div>
             </div>
-
-            <button className="order__close" type="button"
-                onClick={handlerOrderToggle}
-            >×</button>
+            <button className="order__close" type="button">×</button>
         </div>
 
     </>);
