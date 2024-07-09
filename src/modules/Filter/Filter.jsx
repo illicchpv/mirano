@@ -27,11 +27,11 @@ export function Filter() {
   useEffect(() => {
     const validFilters = gatValidFilters(filters);
     const prevFilters = prevFiltersRef.current;
-    console.log('prevFilters.type: ', prevFilters.type);
-    console.log('validFilters.type: ', validFilters.type);
+    console.log('prevFilters.type: ', prevFilters.type, 'validFilters.type: ', validFilters.type);
     if (prevFilters.type !== validFilters.type) {
       dispatch(fetchGoods(validFilters));
     } else {
+      console.log('--------debFetchGoods: ');
       debFetchGoods(validFilters);
     }
     prevFiltersRef.current = validFilters;
