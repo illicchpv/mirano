@@ -1,22 +1,16 @@
 import './filter.scss';
 import {Choices} from '../Choices/Choices';
 import {useEffect, useRef, useState} from 'react';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {fetchGoods, setGoodsTitle} from '../../redux/goodsSlice';
 import {debounce, gatValidFilters} from '../../const';
+import {setFilters} from '../../redux/filterSlice';
 
 export function Filter() {
   const dispatch = useDispatch();
   const [openChoice, setOpenChoice] = useState(null);
 
-  const [filters, setFilters] = useState({
-    type: 'bouquets', // bouquets     toys     postcards
-    minPrice: '',
-    maxPrice: '',
-    category: '',
-    //search
-    //list
-  });
+  let filters = useSelector((state) => state.filter.filters);
 
   const prevFiltersRef = useRef({});
 
@@ -51,7 +45,8 @@ export function Filter() {
       ...filters, type: value,
       minPrice: '', maxPrice: '', category: '',
     };
-    setFilters(newFilters);
+    dispatch(setFilters(newFilters));
+    // setFilters(newFilters);
     setOpenChoice(null);
   };
 
@@ -59,7 +54,7 @@ export function Filter() {
     let {name, value} = target;
     if (isNaN(parseInt(value))) value = '';
     const newFilters = {...filters, [name]: value};
-    setFilters(newFilters);
+    dispatch(setFilters(newFilters));
   };
 
   console.log('current filters.type: ', filters.type);

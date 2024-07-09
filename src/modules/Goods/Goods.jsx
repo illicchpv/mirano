@@ -8,8 +8,6 @@ import {API_URL} from '../../const';
 
 export function Goods() {
   const {items: goods, status: goodsStatus, goodsTitle} = useSelector((state) => state.goods);
-  console.log('goodsTitle: ', goodsTitle);
-
 
   let content = null;
   if(goodsStatus === 'loading') {
