@@ -7,7 +7,8 @@ import {useSelector} from 'react-redux';
 import {API_URL} from '../../const';
 
 export function Goods() {
-  const {items: goods, status: goodsStatus} = useSelector((state) => state.goods);
+  const {items: goods, status: goodsStatus, goodsTitle} = useSelector((state) => state.goods);
+  console.log('goodsTitle: ', goodsTitle);
 
 
   let content = null;
@@ -40,7 +41,7 @@ export function Goods() {
     <section className="goods">
       <div className="container goods__container">
         <div className="goods__box">
-          <h2 className="goods__title">Цветы</h2>
+          <h2 className="goods__title">{goodsTitle}</h2>
 
           {content}
 

@@ -2,7 +2,7 @@ import './filter.scss';
 import {Choices} from '../Choices/Choices';
 import {useEffect, useRef, useState} from 'react';
 import {useDispatch} from 'react-redux';
-import {fetchGoods} from '../../redux/goodsSlice';
+import {fetchGoods, setGoodsTitle} from '../../redux/goodsSlice';
 import {debounce, gatValidFilters} from '../../const';
 
 export function Filter() {
@@ -30,6 +30,7 @@ export function Filter() {
     console.log('prevFilters.type: ', prevFilters.type, 'validFilters.type: ', validFilters.type);
     if (prevFilters.type !== validFilters.type) {
       dispatch(fetchGoods(validFilters));
+      dispatch(setGoodsTitle(validFilters.type));
     } else {
       console.log('--------debounce debFetchGoods: ');
       debFetchGoods(validFilters);
@@ -51,6 +52,7 @@ export function Filter() {
       minPrice: '', maxPrice: '', category: '',
     };
     setFilters(newFilters);
+    setOpenChoice(null);
   };
 
   const handlePriceChange = ({target}) => {
