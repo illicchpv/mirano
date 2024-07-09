@@ -6,26 +6,37 @@ import {Filter} from './modules/Filter/Filter';
 import {Hero} from './modules/Hero/Hero';
 import {Order} from './modules/Order/Order';
 import {Subscribe} from './modules/Subscribe/Subscribe';
+import {useEffect} from 'react';
+import {useDispatch} from 'react-redux';
+import {registerCart} from './redux/cartSlice';
 
 export function App() {
+  const dispatch = useDispatch();
 
-    return (<>
+  useEffect(() => {
+    const initCart = async () => {
+      await dispatch(registerCart());
+    };
+    initCart();
+  }, []);
 
-        <Header />
+  return (<>
 
-        <main>
-            <Hero />
+    <Header />
 
-            <Filter />
+    <main>
+      <Hero />
 
-            <Goods />
+      <Filter />
 
-            <Subscribe />
-        </main>
+      <Goods />
 
-        <Footer />
+      <Subscribe />
+    </main>
 
-        <Order />
+    <Footer />
 
-    </>);
+    <Order />
+
+  </>);
 }
