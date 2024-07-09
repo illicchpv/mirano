@@ -1,9 +1,22 @@
 import './filter.scss';
 import {Choices} from '../Choices/Choices';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
+import {useDispatch} from 'react-redux';
+import {fetchGoods} from '../../redux/goodsSlice';
+import {gatValidFilters} from '../../const';
 
 export function Filter() {
+  const dispatch = useDispatch();
   const [openChoice, setOpenChoice] = useState(null);
+
+  const [filters, setFilters] = useState({
+    type: 'bouquets', // bouquets     toys     postcards
+    minPrice: '',
+    maxPrice: '',
+    //search
+    //list
+    category: '',
+  });
 
   const handleChoicesToggle = (v) => {
     setOpenChoice(p => {
@@ -11,6 +24,18 @@ export function Filter() {
       return v;
     });
   };
+
+  const handleTypeChange = ({target}) => {
+    const {value} = target;
+    const newFilters = {...filters, type: value};
+    setFilters(newFilters);
+  };
+
+  useEffect(() => {
+    const validFilters = gatValidFilters(filters);
+    dispatch(fetchGoods(validFilters));
+  }, [filters]);
+
 
   return (<>
 
@@ -20,17 +45,26 @@ export function Filter() {
         <form className="filter__form">
           <fieldset className="filter__group">
             <input className="filter__radio" type="radio" name="type"
-              value="bouquets" id="flower" defaultChecked />
+              value="bouquets" id="flower"
+              checked={filters.type === 'bouquets'}
+              onChange={handleTypeChange}
+            />
             <label className="filter__label filter__label_flower"
               htmlFor="flower">Цветы</label>
 
             <input className="filter__radio" type="radio" name="type" value="toys"
-              id="toys" />
+              id="toys"
+              checked={filters.type === 'toys'}
+              onChange={handleTypeChange}
+            />
             <label className="filter__label filter__label_toys"
               htmlFor="toys">Игрушки</label>
 
             <input className="filter__radio" type="radio" name="type"
-              value="postcards" id="postcard" />
+              value="postcards" id="postcard"
+              checked={filters.type === 'postcard'}
+              onChange={handleTypeChange}
+            />
             <label className="filter__label filter__label_postcard"
               htmlFor="postcard">Открытки</label>
           </fieldset>
