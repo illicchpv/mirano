@@ -31,7 +31,7 @@ export function Filter() {
     if (prevFilters.type !== validFilters.type) {
       dispatch(fetchGoods(validFilters));
     } else {
-      console.log('--------debFetchGoods: ');
+      console.log('--------debounce debFetchGoods: ');
       debFetchGoods(validFilters);
     }
     prevFiltersRef.current = validFilters;
