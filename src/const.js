@@ -18,4 +18,18 @@ export const gatValidFilters = (filters) => {
     }
   }
   return v;
-}
+};
+
+export const debounce = (fn, ms) => {
+  let lastCall = 0;
+  let lastCallTimer = 0;
+
+  return function (...args) {
+    const prevCall = lastCall;
+    lastCall = Date.now();
+    if (prevCall && lastCall - prevCall < ms) {
+      clearTimeout(lastCallTimer);
+    }
+    lastCallTimer = setTimeout(() => fn.apply(this, args), ms);
+  };
+};

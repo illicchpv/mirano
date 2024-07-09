@@ -1,9 +1,9 @@
 import './filter.scss';
 import {Choices} from '../Choices/Choices';
-import {useEffect, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {fetchGoods} from '../../redux/goodsSlice';
-import {gatValidFilters} from '../../const';
+import {debounce, gatValidFilters} from '../../const';
 
 export function Filter() {
   const dispatch = useDispatch();
@@ -13,10 +13,29 @@ export function Filter() {
     type: 'bouquets', // bouquets     toys     postcards
     minPrice: '',
     maxPrice: '',
+    category: '',
     //search
     //list
-    category: '',
   });
+
+  const prevFiltersRef = useRef({});
+
+  const debFetchGoods = useRef(debounce((filters) => {
+    dispatch(fetchGoods(filters));
+  }, 1300)).current;
+
+  useEffect(() => {
+    const validFilters = gatValidFilters(filters);
+    const prevFilters = prevFiltersRef.current;
+    console.log('prevFilters.type: ', prevFilters.type);
+    console.log('validFilters.type: ', validFilters.type);
+    if (prevFilters.type !== validFilters.type) {
+      dispatch(fetchGoods(validFilters));
+    } else {
+      debFetchGoods(validFilters);
+    }
+    prevFiltersRef.current = validFilters;
+  }, [filters, dispatch, debFetchGoods]);
 
   const handleChoicesToggle = (v) => {
     setOpenChoice(p => {
@@ -27,15 +46,21 @@ export function Filter() {
 
   const handleTypeChange = ({target}) => {
     const {value} = target;
-    const newFilters = {...filters, type: value};
+    const newFilters = {
+      ...filters, type: value,
+      minPrice: '', maxPrice: '', category: '',
+    };
     setFilters(newFilters);
   };
 
-  useEffect(() => {
-    const validFilters = gatValidFilters(filters);
-    dispatch(fetchGoods(validFilters));
-  }, [filters]);
+  const handlePriceChange = ({target}) => {
+    let {name, value} = target;
+    if (isNaN(parseInt(value))) value = '';
+    const newFilters = {...filters, [name]: value};
+    setFilters(newFilters);
+  };
 
+  console.log('current filters.type: ', filters.type);
 
   return (<>
 
@@ -52,8 +77,8 @@ export function Filter() {
             <label className="filter__label filter__label_flower"
               htmlFor="flower">Цветы</label>
 
-            <input className="filter__radio" type="radio" name="type" value="toys"
-              id="toys"
+            <input className="filter__radio" type="radio" name="type"
+              value="toys" id="toys"
               checked={filters.type === 'toys'}
               onChange={handleTypeChange}
             />
@@ -62,7 +87,7 @@ export function Filter() {
 
             <input className="filter__radio" type="radio" name="type"
               value="postcards" id="postcard"
-              checked={filters.type === 'postcard'}
+              checked={filters.type === 'postcards'}
               onChange={handleTypeChange}
             />
             <label className="filter__label filter__label_postcard"
@@ -76,8 +101,12 @@ export function Filter() {
               handleChoicesToggle={() => handleChoicesToggle(1)} >
               <fieldset className="filter__price">
                 <input className="filter__input-price" type="text" name="minPrice"
+                  value={filters.minPrice}
+                  onChange={handlePriceChange}
                   placeholder="от" />
                 <input className="filter__input-price" type="text" name="maxPrice"
+                  value={filters.maxPrice}
+                  onChange={handlePriceChange}
                   placeholder="до" />
               </fieldset>
             </Choices>
