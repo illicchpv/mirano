@@ -4,6 +4,13 @@ import {useEffect, useRef, useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {fetchGoods} from '../../redux/goodsSlice';
 import {debounce, gatValidFilters} from '../../const';
+import {FilterRadio} from './FilterRadio';
+
+const filterTypes = [
+  {title: 'Цветы ', value: 'bouquets'},
+  {title: 'Игрушки ', value: 'toys'},
+  {title: 'Открытки ', value: 'postcards'},
+]
 
 export function Filter() {
   const dispatch = useDispatch();
@@ -51,6 +58,7 @@ export function Filter() {
       minPrice: '', maxPrice: '', category: '',
     };
     setFilters(newFilters);
+    setOpenChoice(-1); 
   };
 
   const handlePriceChange = ({target}) => {
@@ -69,7 +77,13 @@ export function Filter() {
       <div className="container">
         <form className="filter__form">
           <fieldset className="filter__group">
-            <input className="filter__radio" type="radio" name="type"
+            {filterTypes.map((item) => <FilterRadio key={item.value}
+              handleTypeChange={handleTypeChange}
+              data={item}
+              type={filters.type}
+            />)}
+
+            {/* <input className="filter__radio" type="radio" name="type"
               value="bouquets" id="flower"
               checked={filters.type === 'bouquets'}
               onChange={handleTypeChange}
@@ -91,7 +105,7 @@ export function Filter() {
               onChange={handleTypeChange}
             />
             <label className="filter__label filter__label_postcard"
-              htmlFor="postcard">Открытки</label>
+              htmlFor="postcard">Открытки</label> */}
           </fieldset>
 
 
