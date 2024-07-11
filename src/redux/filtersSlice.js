@@ -1,4 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
+import {isNumber} from '../const';
 
 const initialState = {
   type: 'bouquets', // bouquets     toys     postcards
@@ -20,7 +21,9 @@ const filtersSlice = createSlice({
       state.category = '';
     },
     changePrice: (state, action) => {
-      state[action.payload.name] = action.payload.value;
+      if (isNumber(action.payload.value) || action.payload.value === '') {
+        state[action.payload.name] = action.payload.value;
+      }
     }
   }
 });
