@@ -20,7 +20,7 @@ export function App() {
       await dispatch(fetchCart());
     };
     initCart();
-  }, []);
+  }, [dispatch]);
 
   return (<>
 
