@@ -1,10 +1,11 @@
 import './filter.scss';
 import {Choices} from '../Choices/Choices';
 import {useEffect, useRef, useState} from 'react';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {fetchGoods} from '../../redux/goodsSlice';
 import {debounce, gatValidFilters} from '../../const';
 import {FilterRadio} from './FilterRadio';
+import {changePrice, changeType} from '../../redux/filtersSlice';
 
 const filterTypes = [
   {title: 'Цветы ', value: 'bouquets'},
@@ -14,16 +15,17 @@ const filterTypes = [
 
 export function Filter({setTitleGods}) {
   const dispatch = useDispatch();
+  const filters = useSelector(state => state.filters);
   const [openChoice, setOpenChoice] = useState(null);
 
-  const [filters, setFilters] = useState({
-    type: 'bouquets', // bouquets     toys     postcards
-    minPrice: '',
-    maxPrice: '',
-    category: '',
-    //search
-    //list
-  });
+  // const [filters, setFilters] = useState({
+  //   type: 'bouquets', // bouquets     toys     postcards
+  //   minPrice: '',
+  //   maxPrice: '',
+  //   category: '',
+  //   //search
+  //   //list
+  // });
 
   const prevFiltersRef = useRef({});
 
@@ -54,19 +56,22 @@ export function Filter({setTitleGods}) {
 
   const handleTypeChange = ({target}) => {
     const {value} = target;
-    const newFilters = {
-      ...filters, type: value,
-      minPrice: '', maxPrice: '', category: '',
-    };
-    setFilters(newFilters);
+    // const newFilters = {
+    //   ...filters, type: value,
+    //   minPrice: '', maxPrice: '', category: '',
+    // };
+    // setFilters(newFilters);
+    dispatch(changeType(value));
+
     setOpenChoice(-1);
   };
 
   const handlePriceChange = ({target}) => {
     let {name, value} = target;
-    if (isNaN(parseInt(value))) value = '';
-    const newFilters = {...filters, [name]: value};
-    setFilters(newFilters);
+    // if (isNaN(parseInt(value))) value = '';
+    // const newFilters = {...filters, [name]: value};
+    // setFilters(newFilters);
+    dispatch(changePrice({name, value}));
   };
 
   console.log('current filters.type: ', filters.type);
