@@ -1,11 +1,12 @@
+import {API_URL} from '../../const';
 import style from './CartItem.module.scss';
 
-export function CartItem({img, title, price}) {
+export function CartItem({photoUrl: img, title, price}) {
 
     return (<>
         <li className={style.item}>
             <img className={style.img}
-                src={img}
+                src={`${API_URL}${img}`}
                 alt="Букет из роз Grand Avalanche (101 шт)" />
             <h4 className={style.title}>{title}</h4>
             <div className={style.counter}><button

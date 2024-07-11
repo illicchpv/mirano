@@ -12,6 +12,7 @@ export function Cart() {
   const isOpen = useSelector((state) => state.cart.isOpen);
   const items = useSelector((state) => state.cart.items);
   const cartRef = useRef(null);
+  let summ = 0;
 
   const handlerCartToggle = () => {
     dispatch(toggleCart());
@@ -57,6 +58,7 @@ export function Cart() {
         <ul className="cart__list">
 
           {items.map((el) => {
+            summ += el.price * el.quantity;
 
             return (
 
@@ -71,7 +73,7 @@ export function Cart() {
           <button className="cart__order-btn"
             onClick={handlerOrderOpen}
           >Оформить</button>
-          <p className="cart__price cart__price_total">0&nbsp;₽</p>
+          <p className="cart__price cart__price_total">{summ}&nbsp;₽</p>
         </div>
       </div>
     </section>

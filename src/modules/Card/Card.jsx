@@ -1,6 +1,6 @@
 import {useDispatch} from 'react-redux';
 import './card.scss';
-import {addItemToCart} from '../../redux/cartSlice';
+import {addItemToCart, openCart} from '../../redux/cartSlice';
 import {useState} from 'react';
 
 export function Card({className, id, img, title, dateDelivery, price}) {
@@ -16,6 +16,7 @@ export function Card({className, id, img, title, dateDelivery, price}) {
 
   const handlerAddToCart = () => {
     dispatch(addItemToCart({productId: id, quantity: 1}));
+    dispatch(openCart());
   };
 
   // можно просто:  className="goods__card card"

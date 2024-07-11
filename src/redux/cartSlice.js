@@ -53,6 +53,10 @@ const cartSlice = createSlice({
       console.log('toggleCart action: ', action);
       state.isOpen = !state.isOpen;
     },
+    openCart(state, action) {
+      console.log('openCart action: ', action);
+      state.isOpen = true;
+    },
 
     // добавление в корзину localStorage+
     // addItemToCart(state, action) {
@@ -114,4 +118,4 @@ const cartSlice = createSlice({
   },
 });
 export default cartSlice.reducer;
-export const {toggleCart} = cartSlice.actions; // addItemToCart
+export const {toggleCart, openCart} = cartSlice.actions; // addItemToCart
