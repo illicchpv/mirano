@@ -20,7 +20,8 @@ export function Header({setTitleGods, searchValue, setSearchValue}) {
     setTitleGods(searchRezTitle);
     dispatch(changeType(""));
   };
-
+  
+  console.log('cartItems: ', cartItems);
   return (<>
 
     <header className="header">
@@ -47,7 +48,7 @@ export function Header({setTitleGods, searchValue, setSearchValue}) {
 
         <button className="header__cart-button"
           onClick={handlerCartToggle}
-        >{cartItems.length}</button>
+        >{cartItems.reduce((sum, item) => sum + item.quantity, 0)}</button>
       </div>
     </header>
 
