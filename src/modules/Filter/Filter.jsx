@@ -43,7 +43,7 @@ export function Filter({setTitleGods}) {
       debFetchGoods(validFilters);
     }
     prevFiltersRef.current = validFilters;
-  }, [filters, dispatch, debFetchGoods]);
+  }, [setTitleGods, filters, dispatch, debFetchGoods]);
 
   const handleChoicesToggle = (v) => {
     setOpenChoice(p => {
