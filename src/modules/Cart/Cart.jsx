@@ -24,6 +24,10 @@ export function Cart() {
     if (isOpen) {
       cartRef.current.scrollIntoView({block: 'start', behavior: 'smooth'});
     }
+
+    return () => {
+      console.log("Cart demounted");
+    };
   }, [isOpen]);
 
   if (!isOpen) return null;

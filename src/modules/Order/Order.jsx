@@ -2,15 +2,33 @@ import {useDispatch, useSelector} from 'react-redux';
 import style from './Order.module.scss';
 import {closeOrder} from '../../redux/orderSlice';
 import classNames from 'classnames';
+import {useCallback, useEffect} from 'react';
 
 export function Order() {
   const dispatch = useDispatch();
   const isOrderReady = false;
   const isOpen = useSelector((state) => state.order.isOpen);
-  
-  const handlerOrderClose = () => {
+
+  const handlerOrderClose = useCallback( () => {
     dispatch(closeOrder());
-  };
+  }, [dispatch]);
+
+  useEffect(() => {
+    const handleEscape = (e) => {
+      if (e.key === 'Escape') {
+        // dispatch(closeOrder());
+        handlerOrderClose();
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener('keydown', handleEscape);
+
+      return () => {
+        document.removeEventListener('keydown', handleEscape);
+      };
+    }
+  }, [isOpen, handlerOrderClose]);
 
   if (!isOpen) return;
 
@@ -54,8 +72,8 @@ export function Order() {
                 <div className={style["input-group"]}>
                   <input className={style.input}
                     type="text" name="street" placeholder="Улица" />
-                  
-                  <input className={classNames(style.input, style.input_min)} 
+
+                  <input className={classNames(style.input, style.input_min)}
                     type="text" name="house" placeholder="Дом" />
 
                   <input className={classNames(style.input, style.input_min)}
