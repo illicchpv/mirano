@@ -56,11 +56,6 @@ export function Filter({setTitleGods}) {
 
   const handleTypeChange = ({target}) => {
     const {value} = target;
-    // const newFilters = {
-    //   ...filters, type: value,
-    //   minPrice: '', maxPrice: '', category: '',
-    // };
-    // setFilters(newFilters);
     dispatch(changeType(value));
 
     setOpenChoice(-1);
@@ -68,9 +63,6 @@ export function Filter({setTitleGods}) {
 
   const handlePriceChange = ({target}) => {
     let {name, value} = target;
-    // if (isNaN(parseInt(value))) value = '';
-    // const newFilters = {...filters, [name]: value};
-    // setFilters(newFilters);
     dispatch(changePrice({name, value}));
   };
 
