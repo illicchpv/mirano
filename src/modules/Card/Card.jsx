@@ -13,9 +13,9 @@ export function Card({className, id, img, title, dateDelivery, price}) {
   const handleMouseLeave = () => {
     setButtonText(`${price}\u00A0₽`);
   };
-  
+
   const handlerAddToCart = () => {
-    dispatch(addItemToCart({id, img, title, dateDelivery, price}));
+    dispatch(addItemToCart({productId: id, quantity: 1}));
   };
 
   // можно просто:  className="goods__card card"

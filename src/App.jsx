@@ -8,7 +8,7 @@ import {Order} from './modules/Order/Order';
 import {Subscribe} from './modules/Subscribe/Subscribe';
 import {useEffect, useState} from 'react';
 import {useDispatch} from 'react-redux';
-import {registerCart} from './redux/cartSlice';
+import {fetchCart, registerCart} from './redux/cartSlice';
 
 export function App() {
   const dispatch = useDispatch();
@@ -17,6 +17,7 @@ export function App() {
   useEffect(() => {
     const initCart = async () => {
       await dispatch(registerCart());
+      await dispatch(fetchCart());
     };
     initCart();
   }, []);
