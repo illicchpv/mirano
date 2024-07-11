@@ -37,6 +37,9 @@ export function Filter({setTitleGods}) {
     const validFilters = gatValidFilters(filters);
     const prevFilters = prevFiltersRef.current;
     console.log('prevFilters.type: ', prevFilters.type, 'validFilters.type: ', validFilters.type);
+    if (!validFilters.type) {
+      return;
+    }
     if (prevFilters.type !== validFilters.type) {
       dispatch(fetchGoods(validFilters));
       setTitleGods(filterTypes.find(item => item.value === validFilters.type).title);

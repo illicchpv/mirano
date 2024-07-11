@@ -14,7 +14,9 @@ export function Goods({title}) {
   if (goodsStatus === 'loading') {
     content = <p>Loading...</p>;
 
-  } else if (goodsStatus === 'succeeded') {
+  }
+
+  if (goodsStatus === 'succeeded' && goods.length > 0) {
     content = (<ul className="goods__list">
 
       {goods.map((el) => {
@@ -31,7 +33,10 @@ export function Goods({title}) {
       })}
 
     </ul>);
+  }
 
+  if(goods.length === 0) {
+    content = <p>Ничего не найдено</p>;
   }
 
   // goods {id: 38, name: 'Букет из тюльпан Dolche vita (51 шт)', categories: Array(2), price: 6700, photoUrl: '/img/38.jpg'}

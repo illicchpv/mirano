@@ -23,7 +23,7 @@ export function App() {
 
   return (<>
 
-    <Header />
+    <Header setTitleGods={setTitleGods} />
 
     <main>
       <Hero />
