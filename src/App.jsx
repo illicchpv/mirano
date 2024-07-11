@@ -13,6 +13,7 @@ import {fetchCart, registerCart} from './redux/cartSlice';
 export function App() {
   const dispatch = useDispatch();
   const [titleGods, setTitleGods] = useState('');
+  const [searchValue, setSearchValue] = useState('');
 
   useEffect(() => {
     const initCart = async () => {
@@ -24,14 +25,14 @@ export function App() {
 
   return (<>
 
-    <Header setTitleGods={setTitleGods} />
+    <Header setTitleGods={setTitleGods} searchValue={searchValue} setSearchValue={setSearchValue} />
 
     <main>
       <Hero />
 
       <Filter setTitleGods={setTitleGods} />
 
-      <Goods title={titleGods} />
+      <Goods title={titleGods} setSearchValue={setSearchValue} />
 
       <Subscribe />
     </main>

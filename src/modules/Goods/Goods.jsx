@@ -4,10 +4,19 @@ import {Cart} from '../Cart/Cart';
 import {Card} from '../Card/Card';
 import {useSelector} from 'react-redux';
 
-import {API_URL} from '../../const';
+import {API_URL, searchRezTitle} from '../../const';
+import {useEffect, useRef} from 'react';
 
-export function Goods({title}) {
+export function Goods({title, setSearchValue}) {
   const {items: goods, status: goodsStatus} = useSelector((state) => state.goods);
+  const goodsRef = useRef(null);
+
+  useEffect(() => {
+    if(title === searchRezTitle) {
+      goodsRef.current.scrollIntoView({block: "start", behavior: "smooth"});
+      setSearchValue("");
+    }
+  }, [title]);
 
 
   let content = null;
@@ -36,7 +45,7 @@ export function Goods({title}) {
   }
 
   if(goods.length === 0) {
-    content = <p>Ничего не найдено</p>;
+    content = <h2 className="goods__404">По вашему запросу ничего не найдено.</h2>;
   }
 
   // goods {id: 38, name: 'Букет из тюльпан Dolche vita (51 шт)', categories: Array(2), price: 6700, photoUrl: '/img/38.jpg'}
@@ -45,7 +54,7 @@ export function Goods({title}) {
     <section className="goods">
       <div className="container goods__container">
         <div className="goods__box">
-          <h2 className="goods__title">
+          <h2 className="goods__title" ref={goodsRef} >
             {title}
           </h2>
 

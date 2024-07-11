@@ -2,14 +2,13 @@ import './header.scss';
 
 import {useDispatch, useSelector} from 'react-redux';
 import {toggleCart} from '../../redux/cartSlice';
-import {useState} from 'react';
 import {fetchGoods} from '../../redux/goodsSlice';
 import {changeType} from '../../redux/filtersSlice';
+import {searchRezTitle} from '../../const';
 
-export function Header({setTitleGods}) {
+export function Header({setTitleGods, searchValue, setSearchValue}) {
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.items);
-  const [searchValue, setSearchValue] = useState('');
 
   const handlerCartToggle = () => {
     dispatch(toggleCart());
@@ -18,7 +17,7 @@ export function Header({setTitleGods}) {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(fetchGoods({search: searchValue}))
-    setTitleGods('Результат поиска:');
+    setTitleGods(searchRezTitle);
     dispatch(changeType(""));
   };
 

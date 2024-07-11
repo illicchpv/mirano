@@ -37,6 +37,16 @@
     }
   }
 
+  &__404 {
+    margin-top: 50px;
+    font-weight: 700;
+    font-size: 30px;
+    text-align: center;
+    color: rgb(36, 34, 33);
+    
+    text-shadow: 4px 4px 6px rgba(233, 35, 35, 1);
+  }
+
   &__list {
     display: grid;
     grid-template-columns: repeat(auto-fit, 310px);
