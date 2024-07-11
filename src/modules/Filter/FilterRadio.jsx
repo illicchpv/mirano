@@ -1,9 +1,9 @@
-export function FilterRadio({handleTypeChange,  data,  type}) {
+export function FilterRadio({handleTypeChange, data, type}) {
 
   return (<>
 
     <input className="filter__radio" type="radio" name="type"
-      value={data.value} 
+      value={data.value}
       id={data.value}
       checked={type === data.value}
       onChange={handleTypeChange}

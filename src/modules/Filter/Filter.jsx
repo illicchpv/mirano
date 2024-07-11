@@ -10,7 +10,7 @@ const filterTypes = [
   {title: 'Цветы ', value: 'bouquets'},
   {title: 'Игрушки ', value: 'toys'},
   {title: 'Открытки ', value: 'postcards'},
-]
+];
 
 export function Filter() {
   const dispatch = useDispatch();
@@ -58,7 +58,7 @@ export function Filter() {
       minPrice: '', maxPrice: '', category: '',
     };
     setFilters(newFilters);
-    setOpenChoice(-1); 
+    setOpenChoice(-1);
   };
 
   const handlePriceChange = ({target}) => {
@@ -76,6 +76,7 @@ export function Filter() {
       <h2 className="visually-hidden"></h2>
       <div className="container">
         <form className="filter__form">
+
           <fieldset className="filter__group">
             {filterTypes.map((item) => <FilterRadio key={item.value}
               handleTypeChange={handleTypeChange}
@@ -83,29 +84,6 @@ export function Filter() {
               type={filters.type}
             />)}
 
-            {/* <input className="filter__radio" type="radio" name="type"
-              value="bouquets" id="flower"
-              checked={filters.type === 'bouquets'}
-              onChange={handleTypeChange}
-            />
-            <label className="filter__label filter__label_flower"
-              htmlFor="flower">Цветы</label>
-
-            <input className="filter__radio" type="radio" name="type"
-              value="toys" id="toys"
-              checked={filters.type === 'toys'}
-              onChange={handleTypeChange}
-            />
-            <label className="filter__label filter__label_toys"
-              htmlFor="toys">Игрушки</label>
-
-            <input className="filter__radio" type="radio" name="type"
-              value="postcards" id="postcard"
-              checked={filters.type === 'postcards'}
-              onChange={handleTypeChange}
-            />
-            <label className="filter__label filter__label_postcard"
-              htmlFor="postcard">Открытки</label> */}
           </fieldset>
 
 
