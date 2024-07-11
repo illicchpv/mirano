@@ -12,7 +12,7 @@ const filterTypes = [
   {title: 'Открытки ', value: 'postcards'},
 ];
 
-export function Filter() {
+export function Filter({setTitleGods}) {
   const dispatch = useDispatch();
   const [openChoice, setOpenChoice] = useState(null);
 
@@ -37,6 +37,7 @@ export function Filter() {
     console.log('prevFilters.type: ', prevFilters.type, 'validFilters.type: ', validFilters.type);
     if (prevFilters.type !== validFilters.type) {
       dispatch(fetchGoods(validFilters));
+      setTitleGods(filterTypes.find(item => item.value === validFilters.type).title);
     } else {
       console.log('--------debounce debFetchGoods: ');
       debFetchGoods(validFilters);
