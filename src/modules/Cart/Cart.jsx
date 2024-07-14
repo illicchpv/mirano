@@ -68,10 +68,13 @@ export function Cart() {
         </ul>
 
         <div className="cart__footer">
-          <button className="cart__order-btn"
+          <button className="cart__order-btn" disabled={!items.length}
             onClick={handlerOrderOpen}
           >Оформить</button>
-          <p className="cart__price cart__price_total">0&nbsp;₽</p>
+          <p className="cart__price cart__price_total">
+            {items.reduce((acc, el) => acc + el.price * el.quantity, 0)}
+            &nbsp;₽
+          </p>
         </div>
       </div>
     </section>
