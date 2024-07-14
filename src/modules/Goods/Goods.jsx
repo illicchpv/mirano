@@ -7,7 +7,7 @@ import {useSelector} from 'react-redux';
 import {API_URL} from '../../const';
 
 export function Goods({title}) {
-  const {items: goods, status: goodsStatus} = useSelector((state) => state.goods);
+  const {items: goods, status: goodsStatus, error} = useSelector((state) => state.goods);
 
 
   let content = null;
@@ -35,8 +35,12 @@ export function Goods({title}) {
     </ul>);
   }
 
-  if(goods.length === 0) {
-    content = <p>Ничего не найдено</p>;
+  if(goodsStatus === 'succeeded' && goods.length === 0) {
+    content = <p>По вашему запросу ничего не найдено</p>;
+  }
+
+  if(goodsStatus === 'failed') {
+    content = <p>{error}</p>;
   }
 
   // goods {id: 38, name: 'Букет из тюльпан Dolche vita (51 шт)', categories: Array(2), price: 6700, photoUrl: '/img/38.jpg'}
