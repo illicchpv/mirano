@@ -5,7 +5,6 @@ import {useState} from 'react';
 import {addItemToCart} from '../../redux/cartSlice';
 
 export function CartItem({id, photoUrl, name, price, quantity}) {
-  console.log('id: ', id);
   const dispatch = useDispatch();
   const [inputQuantity, setInputQuantity] = useState(quantity);
 
