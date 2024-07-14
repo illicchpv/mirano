@@ -1,6 +1,6 @@
 import {useDispatch, useSelector} from 'react-redux';
 import style from './Order.module.scss';
-import {closeOrder, sentOrder, updateOrderData} from '../../redux/orderSlice';
+import {closeOrder, sendOrder, updateOrderData} from '../../redux/orderSlice';
 import classNames from 'classnames';
 import {useCallback, useEffect} from 'react';
 
@@ -8,6 +8,7 @@ export function Order() {
   const dispatch = useDispatch();
   const isOpen = useSelector((state) => state.order.isOpen);
   const orderId = useSelector((state) => state.order.orderId);
+  // console.log('Order() orderId: ', orderId);
   const orderData = useSelector((state) => state.order.data);
   const itemsCart = useSelector((state) => state.cart.items);
 
@@ -22,7 +23,7 @@ export function Order() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(sentOrder());
+    dispatch(sendOrder());
   };
 
   useEffect(() => {

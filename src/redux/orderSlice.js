@@ -1,5 +1,5 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
-import {API_URL} from '../const';
+// import {API_URL} from '../const';
 import {fetchCart, toggleCart} from './cartSlice';
 
 const initialState = {
@@ -49,25 +49,15 @@ export const sendOrder = createAsyncThunk("order/sendOrder", async (_, {getState
     deliveryDate,
     deliveryTime,
   };
+  console.log('orderData: ', orderData);
 
-  const resp = await fetch(`${API_URL}/api/orders`, {
-    method: 'POST',
-    credentials: 'include',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(orderData),
-  });
-  if (!resp.ok) {
-    throw new Error('sendOrder response error');
-  }
+  const resp = await fetch()
 
   dispatch(clearOrder());
   dispatch(toggleCart());
   dispatch(fetchCart());
 
   return await resp.json();
-
 });
 
 
@@ -93,20 +83,6 @@ const orderSlice = createSlice({
       //??? state.data[action.payload.name] = action.payload.value;
       state.data = {...state.data, ...action.payload};
     },
-  },
-  extraReducers: (builder) => {
-    builder
-      .addCase(sendOrder.pending, (state) => {
-        state.status = 'loading';
-      })
-      .addCase(sendOrder.fulfilled, (state, action) => {
-        state.status = 'succeeded';
-        state.orderId = action.payload.id;
-      })
-      .addCase(sendOrder.rejected, (state, action) => {
-        state.status = 'failed';
-        state.error = action.error.message;
-      });
   },
 });
 export default orderSlice.reducer;

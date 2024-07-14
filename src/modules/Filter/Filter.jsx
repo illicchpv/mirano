@@ -7,7 +7,7 @@ import {debounce} from '../../const';
 import {FilterRadio} from './FilterRadio';
 import {changeCategory, changePrice, changeType} from '../../redux/filtersSlice';
 import classNames from 'classnames';
-console.log('changeCategory: ', changeCategory);
+// console.log('changeCategory: ', changeCategory);
 
 const filterTypes = [
   {title: 'Цветы ', value: 'bouquets'},
@@ -19,7 +19,7 @@ export function Filter({setTitleGods, filterRef}) {
   const dispatch = useDispatch();
   const filters = useSelector(state => state.filters);
   const categories = useSelector(state => state.goods.categories);
-  console.log('Filter -- categories: ', categories);
+  // console.log('Filter -- categories: ', categories);
   const [openChoice, setOpenChoice] = useState(null);
 
   // const [filters, setFilters] = useState({
@@ -39,7 +39,7 @@ export function Filter({setTitleGods, filterRef}) {
 
   useEffect(() => {
     const prevFilters = prevFiltersRef.current;
-    console.log('prevFilters.type: ', prevFilters.type, 'filters.type: ', filters.type);
+    // console.log('prevFilters.type: ', prevFilters.type, 'filters.type: ', filters.type);
     if (!filters.type) {
       return;
     }
@@ -47,7 +47,7 @@ export function Filter({setTitleGods, filterRef}) {
       dispatch(fetchGoods(filters));
       setTitleGods(filterTypes.find(item => item.value === filters.type).title);
     } else {
-      console.log('--------debounce debFetchGoods: ');
+      // console.log('--------debounce debFetchGoods: ');
       debFetchGoods(filters);
     }
     prevFiltersRef.current = filters;
