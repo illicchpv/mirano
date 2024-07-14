@@ -1,3 +1,6 @@
+
+День 6 https://www.youtube.com/watch?v=3sDSzsyME2k
+
 День 5+
 
 день 3.
