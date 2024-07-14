@@ -24,10 +24,13 @@ const filtersSlice = createSlice({
       if (isNumber(action.payload.value) || action.payload.value === '') {
         state[action.payload.name] = action.payload.value;
       }
-    }
+    },
+    changeCategory: (state, action) => {
+      state.category = action.payload;
+    },
   }
 });
 
-export const {changeType, changePrice} = filtersSlice.actions;
+export const {changeType, changePrice, changeCategory} = filtersSlice.actions;
 
 export default filtersSlice.reducer;

@@ -3,9 +3,11 @@ import {Choices} from '../Choices/Choices';
 import {useEffect, useRef, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {fetchGoods} from '../../redux/goodsSlice';
-import {debounce, gatValidFilters} from '../../const';
+import {debounce} from '../../const';
 import {FilterRadio} from './FilterRadio';
-import {changePrice, changeType} from '../../redux/filtersSlice';
+import {changeCategory, changePrice, changeType} from '../../redux/filtersSlice';
+import classNames from 'classnames';
+console.log('changeCategory: ', changeCategory);
 
 const filterTypes = [
   {title: 'Цветы ', value: 'bouquets'},
@@ -16,6 +18,8 @@ const filterTypes = [
 export function Filter({setTitleGods, filterRef}) {
   const dispatch = useDispatch();
   const filters = useSelector(state => state.filters);
+  const categories = useSelector(state => state.goods.categories);
+  console.log('Filter -- categories: ', categories);
   const [openChoice, setOpenChoice] = useState(null);
 
   // const [filters, setFilters] = useState({
@@ -31,23 +35,22 @@ export function Filter({setTitleGods, filterRef}) {
 
   const debFetchGoods = useRef(debounce((filters) => {
     dispatch(fetchGoods(filters));
-  }, 1300)).current;
+  }, 500)).current;
 
   useEffect(() => {
-    const validFilters = gatValidFilters(filters);
     const prevFilters = prevFiltersRef.current;
-    console.log('prevFilters.type: ', prevFilters.type, 'validFilters.type: ', validFilters.type);
-    if (!validFilters.type) {
+    console.log('prevFilters.type: ', prevFilters.type, 'filters.type: ', filters.type);
+    if (!filters.type) {
       return;
     }
-    if (prevFilters.type !== validFilters.type) {
-      dispatch(fetchGoods(validFilters));
-      setTitleGods(filterTypes.find(item => item.value === validFilters.type).title);
+    if (prevFilters.type !== filters.type) {
+      dispatch(fetchGoods(filters));
+      setTitleGods(filterTypes.find(item => item.value === filters.type).title);
     } else {
       console.log('--------debounce debFetchGoods: ');
-      debFetchGoods(validFilters);
+      debFetchGoods(filters);
     }
-    prevFiltersRef.current = validFilters;
+    prevFiltersRef.current = filters;
   }, [setTitleGods, filters, dispatch, debFetchGoods]);
 
   const handleChoicesToggle = (v) => {
@@ -60,7 +63,6 @@ export function Filter({setTitleGods, filterRef}) {
   const handleTypeChange = ({target}) => {
     const {value} = target;
     dispatch(changeType(value));
-
     setOpenChoice(-1);
   };
 
@@ -69,7 +71,10 @@ export function Filter({setTitleGods, filterRef}) {
     dispatch(changePrice({name, value}));
   };
 
-  console.log('current filters.type: ', filters.type);
+  const handleCategoryChange = (cat) => {
+    dispatch(changeCategory(cat));
+    setOpenChoice(-1);
+  };
 
   return (<>
 
@@ -104,34 +109,36 @@ export function Filter({setTitleGods, filterRef}) {
               </fieldset>
             </Choices>
 
-            <Choices buttonLabel="Тип товара"
-              isOpen={openChoice === 2}
-              handleChoicesToggle={() => handleChoicesToggle(2)} >
+            {categories.length ? (
+              <Choices buttonLabel="Тип товара"
+                isOpen={openChoice === 2}
+                handleChoicesToggle={() => handleChoicesToggle(2)} >
 
 
-              <ul className="filter__type-list">
-                <li className="filter__type-item">
-                  <button className="filter__type-button"
-                    type="button">Монобукеты</button>
-                </li>
-                <li className="filter__type-item">
-                  <button className="filter__type-button" type="button">Авторские
-                    букеты</button>
-                </li>
-                <li className="filter__type-item">
-                  <button className="filter__type-button" type="button">Цветы в
-                    коробке</button>
-                </li>
-                <li className="filter__type-item">
-                  <button className="filter__type-button" type="button">Цветы в
-                    корзине</button>
-                </li>
-                <li className="filter__type-item">
-                  <button className="filter__type-button" type="button">Букеты из
-                    сухоцветов</button>
-                </li>
-              </ul>
-            </Choices>
+                <ul className="filter__type-list">
+
+                  <li className="filter__type-item">
+                    <button className="filter__type-button" type="button"
+                      onClick={() => handleCategoryChange('')}
+                    >все товары</button>
+                  </li>
+
+                  {categories.map(el => (
+                    // filter__type-button_active
+                    <li key={el} className="filter__type-item">
+                      <button type="button"
+                        className={classNames(
+                          "filter__type-button",
+                          el === filters.category && 'filter__type-button_active'
+                        )}
+                        onClick={() => handleCategoryChange(el)}
+                      >{el}</button>
+                    </li>
+
+                  ))}
+                </ul>
+              </Choices>
+            ) : null}
           </fieldset>
         </form>
       </div>
