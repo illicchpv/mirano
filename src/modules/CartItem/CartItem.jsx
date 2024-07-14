@@ -14,17 +14,17 @@ export function CartItem({id, photoUrl, name, price, quantity}) {
     const v = +event.target.value;
     setInputQuantity(v);
     dispatch(addItemToCart({productId: id, quantity: v}));
-    debouncedInputChange(v)
+    debouncedInputChange(v);
   };
   const handleDec = () => {
     const v = inputQuantity - 1;
     setInputQuantity(v);
-    debouncedInputChange(v)
+    debouncedInputChange(v);
   };
   const handleInc = () => {
     const v = inputQuantity + 1;
     setInputQuantity(v);
-    debouncedInputChange(v)
+    debouncedInputChange(v);
   };
 
   return (<>
@@ -45,7 +45,7 @@ export function CartItem({id, photoUrl, name, price, quantity}) {
         <button className={style.btn}
           onClick={handleInc}
         >+</button></div>
-      <p className={style.price}>{price*quantity}&nbsp;₽</p>
+      <p className={style.price}>{price * quantity}&nbsp;₽</p>
     </li>
 
   </>);
