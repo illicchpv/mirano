@@ -25,7 +25,7 @@ export function App() {
   }, [dispatch]);
 
   const scrollToFilter = () => {
-    filterRef.current.scrollIntoView({block: 'start', behavior: 'smooth'});
+    if(filterRef.current) filterRef.current.scrollIntoView({block: 'start', behavior: 'smooth'});
   }
 
   return (<>
