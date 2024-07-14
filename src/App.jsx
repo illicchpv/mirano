@@ -6,13 +6,15 @@ import {Filter} from './modules/Filter/Filter';
 import {Hero} from './modules/Hero/Hero';
 import {Order} from './modules/Order/Order';
 import {Subscribe} from './modules/Subscribe/Subscribe';
-import {useEffect, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {fetchCart, registerCart} from './redux/cartSlice';
 
 export function App() {
   const dispatch = useDispatch();
   const [titleGods, setTitleGods] = useState('');
+  const filterRef = useRef(null);
+
 
   useEffect(() => {
     const initCart = async () => {
@@ -22,14 +24,18 @@ export function App() {
     initCart();
   }, [dispatch]);
 
+  const scrollToFilter = () => {
+    filterRef.current.scrollIntoView({block: 'start', behavior: 'smooth'});
+  }
+
   return (<>
 
-    <Header setTitleGods={setTitleGods} />
+    <Header setTitleGods={setTitleGods} scrollToFilter={scrollToFilter} />
 
     <main>
       <Hero />
 
-      <Filter setTitleGods={setTitleGods} />
+      <Filter setTitleGods={setTitleGods} filterRef={filterRef} />
 
       <Goods title={titleGods} />
 

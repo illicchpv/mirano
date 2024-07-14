@@ -46,7 +46,7 @@ export function Goods({title}) {
   // goods {id: 38, name: 'Букет из тюльпан Dolche vita (51 шт)', categories: Array(2), price: 6700, photoUrl: '/img/38.jpg'}
   return (<>
 
-    <section className="goods">
+    <section className="goods" >
       <div className="container goods__container">
         <div className="goods__box">
           <h2 className="goods__title">

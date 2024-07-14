@@ -6,7 +6,7 @@ import {useState} from 'react';
 import {fetchGoods} from '../../redux/goodsSlice';
 import {changeType} from '../../redux/filtersSlice';
 
-export function Header({setTitleGods}) {
+export function Header({setTitleGods, scrollToFilter}) {
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.items);
   const [searchValue, setSearchValue] = useState('');
@@ -20,6 +20,7 @@ export function Header({setTitleGods}) {
     dispatch(fetchGoods({search: searchValue}))
     setTitleGods('Результат поиска:');
     dispatch(changeType(""));
+    scrollToFilter();
   };
 
   return (<>
