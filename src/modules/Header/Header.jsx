@@ -21,6 +21,7 @@ export function Header({setTitleGods, scrollToFilter}) {
     setTitleGods('Результат поиска:');
     dispatch(changeType(""));
     scrollToFilter();
+    setSearchValue('');
   };
 
   return (<>
