@@ -5,6 +5,7 @@ import {Card} from '../Card/Card';
 import {useSelector} from 'react-redux';
 
 import {API_URL} from '../../const';
+import {Preload} from '../Preload/Preload';
 
 export function Goods({title}) {
   const {items: goods, status: goodsStatus, error} = useSelector((state) => state.goods);
@@ -12,8 +13,7 @@ export function Goods({title}) {
 
   let content = null;
   if (goodsStatus === 'loading') {
-    content = <p>Loading...</p>;
-
+    content = <Preload/>;
   }
 
   if (goodsStatus === 'succeeded' && goods.length > 0) {
@@ -46,7 +46,9 @@ export function Goods({title}) {
   // goods {id: 38, name: 'Букет из тюльпан Dolche vita (51 шт)', categories: Array(2), price: 6700, photoUrl: '/img/38.jpg'}
   return (<>
 
-    <section className="goods" >
+    <section className="goods" 
+      style={{position: goodsStatus === 'loading' ? 'relative' : ''}}
+    >
       <div className="container goods__container">
         <div className="goods__box">
           <h2 className="goods__title">
