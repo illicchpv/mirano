@@ -28,19 +28,20 @@ export function Filter({setTitleGods}) {
   }, 500)).current;
 
   useEffect(() => {
-    if (filters !== prevFiltersRef.current) {
+    if (filters !== prevFiltersRef.current && !(openChoice > 0)) {
       filterRef.current?.scrollIntoView({block: 'start', behavior: 'smooth'});
     }
   }, [filters]);
 
   useEffect(() => {
-    document.addEventListener('click', (e) => {
-      const target = e.target.closest('.filter__group_choices');
-      if (!target && openChoice !== null && openChoice !== -1) {
+    document.addEventListener("click", (e) => {
+      const target = e.target.closest(".filter__group_choices");
+      if (!target && (openChoice !== null || openChoice !== -1)) {
         setOpenChoice(-1);
       }
     });
   }, [openChoice]);
+
 
   useEffect(() => {
     const {minPrice: prevMinPrice, maxPrice: prevMaxPrice} = prevFiltersRef.current;
