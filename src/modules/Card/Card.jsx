@@ -1,10 +1,11 @@
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import './card.scss';
-import {addItemToCart} from '../../redux/cartSlice';
+import {addItemToCart, toggleCart} from '../../redux/cartSlice';
 import {useState} from 'react';
 
 export function Card({className, id, img, title, dateDelivery, price}) {
   const dispatch = useDispatch();
+  const isOpenCart = useSelector((state) => state.cart.isOpen);
   const [buttonText, setButtonText] = useState(`${price}\u00A0₽`); // {// В корзину
 
   const handleMouseEnter = () => {
@@ -15,7 +16,8 @@ export function Card({className, id, img, title, dateDelivery, price}) {
   };
 
   const handlerAddToCart = () => {
-    dispatch(addItemToCart({productId: id, quantity: 1}));
+    dispatch(addItemToCart({productId: id}));
+    if(!isOpenCart) dispatch(toggleCart());
   };
 
   // можно просто:  className="goods__card card"

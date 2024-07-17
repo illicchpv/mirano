@@ -7,6 +7,7 @@ import {addItemToCart} from '../../redux/cartSlice';
 export function CartItem({id, photoUrl, name, price, quantity}) {
   const dispatch = useDispatch();
   const [inputQuantity, setInputQuantity] = useState(quantity);
+  if(inputQuantity !== quantity) setInputQuantity(quantity);
 
   const debouncedInputChange = debounce((v) => dispatch(addItemToCart({productId: id, quantity: v})), 500);
 
