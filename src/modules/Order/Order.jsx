@@ -8,7 +8,6 @@ export function Order() {
   const dispatch = useDispatch();
   const isOpen = useSelector((state) => state.order.isOpen);
   const orderId = useSelector((state) => state.order.orderId);
-  // console.log('Order() orderId: ', orderId);
   const orderData = useSelector((state) => state.order.data);
   const itemsCart = useSelector((state) => state.cart.items);
 
@@ -69,12 +68,14 @@ export function Order() {
                     name="buyerName"
                     value={orderData.buyerName}
                     onChange={handleChange}
+
                     placeholder="Имя" />
                   <input
                     className={style.input} type="text"
                     name="buyerPhone"
                     value={orderData.buyerPhone}
                     onChange={handleChange}
+
                     placeholder="Телефон" />
                 </div>
               </fieldset>
@@ -86,12 +87,14 @@ export function Order() {
                     name="recipientName"
                     value={orderData.recipientName}
                     onChange={handleChange}
+
                     placeholder="Имя" />
                   <input
                     className={style.input} type="text"
                     name="recipientPhone"
                     value={orderData.recipientPhone}
                     onChange={handleChange}
+
                     placeholder="Телефон" />
                 </div>
               </fieldset>
@@ -103,6 +106,7 @@ export function Order() {
                     name="street"
                     value={orderData.street}
                     onChange={handleChange}
+                    
                     placeholder="Улица" />
 
                   <input className={classNames(style.input, style.input_min)}
@@ -110,6 +114,7 @@ export function Order() {
                     name="house"
                     value={orderData.house}
                     onChange={handleChange}
+                    
                     placeholder="Дом" />
 
                   <input className={classNames(style.input, style.input_min)}
@@ -117,6 +122,7 @@ export function Order() {
                     name="apartment"
                     value={orderData.apartment}
                     onChange={handleChange}
+                    
                     placeholder="Квартира" />
                 </div>
               </fieldset>
@@ -131,17 +137,20 @@ export function Order() {
                     defaultChecked />Оплата онлайн</label>
                 </div>
                 <div className={style.delivery}>
-                  <label htmlFor="delivery">Доставка 01.07</label>
-                  <input type="hidden"
+                  <label htmlFor="delivery">Дата доставки</label>
+                  <input className={style.input}
+                    type="date"
                     name="deliveryDate"
                     value={orderData.deliveryDate}
                     onChange={handleChange}
+                    
                   />
                   <div className={style["select-wrapper"]}>
                     <select className={style.select}
                       name="deliveryTime"
                       value={orderData.deliveryTime}
                       onChange={handleChange}
+                      
                       id="delivery">
                       <option value="9-12">с 9:00 до 12:00</option>
                       <option value="12-15">с 12:00 до 15:00</option>
