@@ -7,29 +7,32 @@ import {addItemToCart} from '../../redux/cartSlice';
 export function CartItem({id, photoUrl, name, price, quantity}) {
   const dispatch = useDispatch();
   const [inputQuantity, setInputQuantity] = useState(quantity);
-  if (inputQuantity !== quantity) setInputQuantity(quantity);
 
-  const debouncedInputChange = debounce((v) => {
-    if (isNumber(v)) {
-      dispatch(addItemToCart({productId: id, quantity: v}));
+  const debounceInputChange = debounce((newQuantity) => {
+    if (isNumber(newQuantity)) {
+      dispatch(addItemToCart({productId: id, quantity: newQuantity}));
+
     }
   }, 500);
 
-  const handleInputChange = (event) => {
-    const v = parseInt(event.target.value);
-    setInputQuantity(v);
-    debouncedInputChange(v);
+  const handleInputChange = (e) => {
+    const newQuantity = parseInt(e.target.value);
+    setInputQuantity(newQuantity);
+    debounceInputChange(newQuantity);
   };
+
   const handleDec = () => {
-    const v = inputQuantity - 1;
-    setInputQuantity(v);
-    debouncedInputChange(v);
+    const newQuantity = inputQuantity - 1;
+    setInputQuantity(newQuantity);
+    dispatch(addItemToCart({productId: id, quantity: newQuantity}));
   };
+
   const handleInc = () => {
-    const v = inputQuantity + 1;
-    setInputQuantity(v);
-    debouncedInputChange(v);
+    const newQuantity = inputQuantity + 1;
+    setInputQuantity(newQuantity);
+    dispatch(addItemToCart({productId: id, quantity: newQuantity}));
   };
+
 
   return (<>
     <li className={style.item}>
@@ -48,8 +51,11 @@ export function CartItem({id, photoUrl, name, price, quantity}) {
         />
         <button className={style.btn}
           onClick={handleInc}
-        >+</button></div>
-      <p className={style.price}>{price * quantity}&nbsp;₽</p>
+        >+</button>
+      </div>
+      <p className={style.price}>
+        {inputQuantity ? price * inputQuantity : 0}&nbsp;₽
+      </p>
     </li>
 
   </>);
