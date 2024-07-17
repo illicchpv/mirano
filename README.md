@@ -1,3 +1,4 @@
+конец урока.
 День 7 последний.  https://www.youtube.com/watch?v=mkW2Ggzadrg
 
 День 6 https://www.youtube.com/watch?v=3sDSzsyME2k
