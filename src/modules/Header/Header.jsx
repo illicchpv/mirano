@@ -2,14 +2,14 @@ import './header.scss';
 
 import {useDispatch, useSelector} from 'react-redux';
 import {toggleCart} from '../../redux/cartSlice';
-import {useState} from 'react';
-import {fetchGoods} from '../../redux/goodsSlice';
-import {changeType} from '../../redux/filtersSlice';
+import {useRef, useState} from 'react';
+import {changeSearch} from '../../redux/filtersSlice';
 
-export function Header({setTitleGods, scrollToFilter}) {
+export function Header() {
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.items);
   const [searchValue, setSearchValue] = useState('');
+  const searchInputRef = useRef(null);
 
   const handlerCartToggle = () => {
     dispatch(toggleCart());
@@ -17,11 +17,13 @@ export function Header({setTitleGods, scrollToFilter}) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(fetchGoods({search: searchValue}))
-    setTitleGods('Результат поиска:');
-    dispatch(changeType(""));
-    scrollToFilter();
-    setSearchValue('');
+    if (searchValue.trim() !== '') {
+      dispatch(changeSearch(searchValue));
+      setSearchValue('');
+    } else {
+      searchInputRef.current.style.cssText = 'outline: 2px solid tomato; outline-offset: 3px;';
+      setTimeout(() => searchInputRef.current.style.cssText = '', 2000);
+    }
   };
 
   return (<>
@@ -29,11 +31,13 @@ export function Header({setTitleGods, scrollToFilter}) {
     <header className="header">
       <div className="container header__container">
         <form className="header__form" action="#"
-        onSubmit={handleSubmit}>
+          onSubmit={handleSubmit}>
           <input className="header__input" type="search" name="search"
             placeholder="Букет из роз"
-            value={searchValue} 
-            onChange={e => setSearchValue(e.target.value)}/>
+            value={searchValue}
+            onChange={e => setSearchValue(e.target.value)}
+            ref={searchInputRef}
+          />
 
           <button className="header__search-button" aria-label="начать поиск">
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
@@ -50,7 +54,7 @@ export function Header({setTitleGods, scrollToFilter}) {
 
         <button className="header__cart-button"
           onClick={handlerCartToggle}
-        >{cartItems.reduce((sum, item) => sum + item.quantity, 0) }</button>
+        >{cartItems.reduce((sum, item) => sum + item.quantity, 0)}</button>
       </div>
     </header>
 

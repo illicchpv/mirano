@@ -21,35 +21,33 @@ export function Filter({setTitleGods, filterRef}) {
   const categories = useSelector(state => state.goods.categories);
   // console.log('Filter -- categories: ', categories);
   const [openChoice, setOpenChoice] = useState(null);
-
-  // const [filters, setFilters] = useState({
-  //   type: 'bouquets', // bouquets     toys     postcards
-  //   minPrice: '',
-  //   maxPrice: '',
-  //   category: '',
-  //   //search
-  //   //list
-  // });
-
-  const prevFiltersRef = useRef({});
+  const prevFiltersRef = useRef(filters);
 
   const debFetchGoods = useRef(debounce((filters) => {
     dispatch(fetchGoods(filters));
   }, 500)).current;
 
   useEffect(() => {
-    const prevFilters = prevFiltersRef.current;
+    const {minPrice: prevMinPrice, maxPrice: prevMaxPrice} = prevFiltersRef.current;
+    // const prevFilters = prevFiltersRef.current;
     // console.log('prevFilters.type: ', prevFilters.type, 'filters.type: ', filters.type);
-    if (!filters.type) {
+    if (!filters.type && !filters.search) {
       return;
     }
-    if (prevFilters.type !== filters.type) {
-      dispatch(fetchGoods(filters));
-      setTitleGods(filterTypes.find(item => item.value === filters.type).title);
-    } else {
-      // console.log('--------debounce debFetchGoods: ');
+
+    if(prevMinPrice !== filters.minPrice || prevMaxPrice !== filters.maxPrice) {
       debFetchGoods(filters);
+    }else{
+      dispatch(fetchGoods(filters));
+      const type = filterTypes.find(item => item.value === filters.type);
+      if(type){
+        setTitleGods(type.title);
+      }
+      if(filters.search){
+        setTitleGods('Результаты поиска');
+      }
     }
+
     prevFiltersRef.current = filters;
   }, [setTitleGods, filters, dispatch, debFetchGoods]);
 
