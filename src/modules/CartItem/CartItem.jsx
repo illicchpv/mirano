@@ -1,5 +1,5 @@
 import {useDispatch} from 'react-redux';
-import {API_URL, debounce} from '../../const';
+import {API_URL, debounce, isNumber} from '../../const';
 import style from './CartItem.module.scss';
 import {useState} from 'react';
 import {addItemToCart} from '../../redux/cartSlice';
@@ -7,14 +7,17 @@ import {addItemToCart} from '../../redux/cartSlice';
 export function CartItem({id, photoUrl, name, price, quantity}) {
   const dispatch = useDispatch();
   const [inputQuantity, setInputQuantity] = useState(quantity);
-  if(inputQuantity !== quantity) setInputQuantity(quantity);
+  if (inputQuantity !== quantity) setInputQuantity(quantity);
 
-  const debouncedInputChange = debounce((v) => dispatch(addItemToCart({productId: id, quantity: v})), 500);
+  const debouncedInputChange = debounce((v) => {
+    if (isNumber(v)) {
+      dispatch(addItemToCart({productId: id, quantity: v}));
+    }
+  }, 500);
 
   const handleInputChange = (event) => {
-    const v = +event.target.value;
+    const v = parseInt(event.target.value);
     setInputQuantity(v);
-    dispatch(addItemToCart({productId: id, quantity: v}));
     debouncedInputChange(v);
   };
   const handleDec = () => {
