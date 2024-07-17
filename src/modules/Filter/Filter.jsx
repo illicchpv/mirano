@@ -15,17 +15,22 @@ const filterTypes = [
   {title: 'Открытки ', value: 'postcards'},
 ];
 
-export function Filter({setTitleGods, filterRef}) {
+export function Filter({setTitleGods}) {
   const dispatch = useDispatch();
   const filters = useSelector(state => state.filters);
   const categories = useSelector(state => state.goods.categories);
-  // console.log('Filter -- categories: ', categories);
+  const goods = useSelector(state => state.goods.items);
   const [openChoice, setOpenChoice] = useState(null);
   const prevFiltersRef = useRef(filters);
+  const filterRef = useRef(null);
 
   const debFetchGoods = useRef(debounce((filters) => {
     dispatch(fetchGoods(filters));
   }, 500)).current;
+
+  useEffect(() => {
+    filterRef.current?.scrollIntoView({block: 'start', behavior: 'smooth'});
+  }, [goods]);
 
   useEffect(() => {
     const {minPrice: prevMinPrice, maxPrice: prevMaxPrice} = prevFiltersRef.current;
