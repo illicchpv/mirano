@@ -28,10 +28,19 @@ export function Filter({setTitleGods}) {
   }, 500)).current;
 
   useEffect(() => {
-    if(filters !== prevFiltersRef.current) {
+    if (filters !== prevFiltersRef.current) {
       filterRef.current?.scrollIntoView({block: 'start', behavior: 'smooth'});
     }
   }, [filters]);
+
+  useEffect(() => {
+    document.addEventListener('click', (e) => {
+      const target = e.target.closest('.filter__group_choices');
+      if (!target && openChoice !== null && openChoice !== -1) {
+        setOpenChoice(-1);
+      }
+    });
+  }, [openChoice]);
 
   useEffect(() => {
     const {minPrice: prevMinPrice, maxPrice: prevMaxPrice} = prevFiltersRef.current;
@@ -41,15 +50,15 @@ export function Filter({setTitleGods}) {
       return;
     }
 
-    if(prevMinPrice !== filters.minPrice || prevMaxPrice !== filters.maxPrice) {
+    if (prevMinPrice !== filters.minPrice || prevMaxPrice !== filters.maxPrice) {
       debFetchGoods(filters);
-    }else{
+    } else {
       dispatch(fetchGoods(filters));
       const type = filterTypes.find(item => item.value === filters.type);
-      if(type){
+      if (type) {
         setTitleGods(type.title);
       }
-      if(filters.search){
+      if (filters.search) {
         setTitleGods('Результаты поиска');
       }
     }
