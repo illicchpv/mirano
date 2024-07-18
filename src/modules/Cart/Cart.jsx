@@ -13,6 +13,7 @@ export function Cart() {
   const isOpen = useSelector((state) => state.cart.isOpen);
   const items = useSelector((state) => state.cart.items);
   const status = useSelector((state) => state.cart.status);
+  const ddTitle = useSelector((state) => state.cart.deliveryDate.title);
   const cartRef = useRef(null);
 
   const handlerCartToggle = () => {
@@ -54,7 +55,7 @@ export function Cart() {
           </button>
         </div>
 
-        <p className="cart__date-delivery">сегодня в 14:00</p>
+        <p className="cart__date-delivery">{ddTitle}</p>
 
         {status === 'loading' && <div className='cart__preload'><Preload /></div> }
         {status !== 'loading' && (

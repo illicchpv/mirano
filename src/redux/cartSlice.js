@@ -1,5 +1,5 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
-import {API_URL} from '../const';
+import {API_URL, deliveryDate} from '../const';
 
 const initialState = {
   isOpen: false,
@@ -7,6 +7,7 @@ const initialState = {
   status: "idle",
   accessKey: null,
   error: null,
+  deliveryDate: deliveryDate(),
 };
 
 export const addItemToCart = createAsyncThunk("cart/addItemToCart",
@@ -63,6 +64,10 @@ const cartSlice = createSlice({
     toggleCart(state, action) {
       console.log('toggleCart action: ', action);
       state.isOpen = !state.isOpen;
+    },
+    changeDeliveryDate(state, action) {
+      console.log('changeDeliveryDate action: ', action);
+      state.deliveryDate = deliveryDate();
     },
 
     // добавление в корзину localStorage+
@@ -125,4 +130,4 @@ const cartSlice = createSlice({
   },
 });
 export default cartSlice.reducer;
-export const {toggleCart} = cartSlice.actions; // addItemToCart
+export const {toggleCart, changeDeliveryDate} = cartSlice.actions; // addItemToCart

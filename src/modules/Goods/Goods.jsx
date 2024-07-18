@@ -9,7 +9,7 @@ import {Preload} from '../Preload/Preload';
 
 export function Goods({title}) {
   const {items: goods, status: goodsStatus, error} = useSelector((state) => state.goods);
-
+  const ddTitle = useSelector((state) => state.cart.deliveryDate.title);
 
   let content = null;
   if (goodsStatus === 'loading') {
@@ -20,12 +20,13 @@ export function Goods({title}) {
     content = (<ul className="goods__list">
 
       {goods.map((el) => {
+
         return (
 
           <li key={el.id} className="goods__item">
             <Card
               className='goods__card'
-              id={el.id} img={`${API_URL}${el.photoUrl}`} title={el.name} dateDelivery={"сегодня в 14:00"} price={el.price}
+              id={el.id} img={`${API_URL}${el.photoUrl}`} title={el.name} dateDelivery={ddTitle} price={el.price}
             />
           </li>
 

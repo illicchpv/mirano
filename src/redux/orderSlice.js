@@ -1,7 +1,7 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 // import {API_URL} from '../const';
 import {fetchCart, toggleCart} from './cartSlice';
-import {API_URL} from '../const';
+import {API_URL, deliveryDate} from '../const';
 
 const initialState = {
   isOpen: false,
@@ -102,6 +102,10 @@ const orderSlice = createSlice({
       //??? state.data[action.payload.name] = action.payload.value;
       state.data = {...state.data, ...action.payload};
     },
+    changeDeliveryDate(state, action) {
+      console.log('changeDeliveryDate action: ', action);
+      state.deliveryDate = deliveryDate();
+    },    
   },
   extraReducers: (builder) => {
     builder
@@ -121,4 +125,4 @@ const orderSlice = createSlice({
   },
 });
 export default orderSlice.reducer;
-export const {openOrder, clearOrder, closeOrder, updateOrderData} = orderSlice.actions;
+export const {openOrder, clearOrder, closeOrder, updateOrderData, changeDeliveryDate} = orderSlice.actions;

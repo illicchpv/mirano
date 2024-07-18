@@ -8,12 +8,19 @@ import {Order} from './modules/Order/Order';
 import {Subscribe} from './modules/Subscribe/Subscribe';
 import {useEffect, useState} from 'react';
 import {useDispatch} from 'react-redux';
-import {fetchCart, registerCart} from './redux/cartSlice';
+import {changeDeliveryDate, fetchCart, registerCart} from './redux/cartSlice';
 
 export function App() {
   const dispatch = useDispatch();
   const [titleGods, setTitleGods] = useState('');
 
+  useEffect(() => {
+    const iId = setInterval(() => {
+      console.log('iId: ', iId);
+      dispatch(changeDeliveryDate());
+    }, 3000);
+    return () => clearInterval(iId);
+  }, []);
 
   useEffect(() => {
     const initCart = async () => {

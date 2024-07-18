@@ -3,6 +3,7 @@ import style from './Order.module.scss';
 import {closeOrder, sendOrder, updateOrderData} from '../../redux/orderSlice';
 import classNames from 'classnames';
 import {useCallback, useEffect} from 'react';
+import {deliveryDate} from '../../const';
 
 export function Order() {
   const dispatch = useDispatch();
@@ -87,14 +88,14 @@ export function Order() {
                     name="recipientName"
                     value={orderData.recipientName}
                     onChange={handleChange}
-
+                    required
                     placeholder="Имя" />
                   <input
                     className={style.input} type="text"
                     name="recipientPhone"
                     value={orderData.recipientPhone}
                     onChange={handleChange}
-
+                    required
                     placeholder="Телефон" />
                 </div>
               </fieldset>
@@ -106,7 +107,7 @@ export function Order() {
                     name="street"
                     value={orderData.street}
                     onChange={handleChange}
-                    
+                    required
                     placeholder="Улица" />
 
                   <input className={classNames(style.input, style.input_min)}
@@ -114,7 +115,7 @@ export function Order() {
                     name="house"
                     value={orderData.house}
                     onChange={handleChange}
-                    
+                    required
                     placeholder="Дом" />
 
                   <input className={classNames(style.input, style.input_min)}
@@ -122,7 +123,7 @@ export function Order() {
                     name="apartment"
                     value={orderData.apartment}
                     onChange={handleChange}
-                    
+                    required
                     placeholder="Квартира" />
                 </div>
               </fieldset>
@@ -143,19 +144,20 @@ export function Order() {
                     name="deliveryDate"
                     value={orderData.deliveryDate}
                     onChange={handleChange}
-                    
+                    required
                   />
                   <div className={style["select-wrapper"]}>
                     <select className={style.select}
                       name="deliveryTime"
                       value={orderData.deliveryTime}
                       onChange={handleChange}
-                      
+
                       id="delivery">
-                      <option value="9-12">с 9:00 до 12:00</option>
-                      <option value="12-15">с 12:00 до 15:00</option>
-                      <option value="15-18">с 15:00 до 18:00</option>
-                      <option value="18-21">с 18:00 до 21:00</option>
+
+                      {[0, 3, 6, 9].map(el =>
+                        (<option key={el} value={deliveryDate(el).value}>{deliveryDate(el).title}</option>))
+                      }
+
                     </select></div>
                 </div>
               </fieldset>

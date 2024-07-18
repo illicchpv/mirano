@@ -68,3 +68,25 @@ export const adjustElementPosition = (element, count = 0) => {
     adjustElementPosition(element, ++count);
   }
 };
+
+export function deliveryDate(dh = 0) {
+  const ms = Date.now() + (dh * 60 * 60 * 1000) + (3 * 60 * 60 * 1000); 
+  const t1 = new Date(ms);
+  const t1d = t1.getDay();
+  if(t1d === new Date().getDay()) {
+    const t1h = t1.getHours();
+    if(t1h > 21) {
+      return { value: '9-12', title:'завтра с 9:00 до 12', }
+    }else if(t1h > 18) {
+      return { value: '18-21', title:'с 18:00 до 21', }
+    }else if(t1h > 15) {
+      return { value: '15-18', title:'с 15:00 до 18', }
+    }else if(t1h > 12) {
+      return { value: '12-15', title:'с 12:00 до 15', }
+    } else {
+      return { value: '9-12', title:'с 9:00 до 12', }
+    }
+  }else{
+    return { value: '9-12', title:'завтра с 9:00 до 12', }
+  }
+}
